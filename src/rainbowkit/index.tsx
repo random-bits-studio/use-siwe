@@ -3,7 +3,7 @@ import {
   RainbowKitAuthenticationProvider,
 } from '@rainbow-me/rainbowkit';
 import React, { PropsWithChildren } from 'react';
-import { useSiwe } from '../useSiwe.js';
+import { useSiwe } from '@randombits/use-siwe';
 import { SiweMessage } from 'siwe';
 
 const RainbowKitUseSiweProvider = ({ children }: PropsWithChildren) => {
