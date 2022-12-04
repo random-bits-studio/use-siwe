@@ -1,0 +1,90 @@
+{
+  "name": "@randombits/use-siwe",
+  "version": "0.0.0-semantically-released",
+  "description": "React hook and API endpoints that provide Sign In With Ethereum support",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist/**",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*/index.js",
+      "require": "./dist/*/index.cjs",
+      "types": "./dist/*/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepare": "husky install",
+    "lint": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/random-bits-studio/use-siwe.git"
+  },
+  "keywords": [
+    "SIWE",
+    "Next.js",
+    "auth",
+    "authentication",
+    "Iron Session",
+    "Session",
+    "Ethereum",
+    "Web3"
+  ],
+  "author": "AJ May <aj@randombits.studio>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/random-bits-studio/use-siwe/issues"
+  },
+  "homepage": "https://github.com/random-bits-studio/use-siwe#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.20",
+    "husky": "^8.0.2",
+    "iron-session": "^6.3.1",
+    "lint-staged": "^13.0.4",
+    "next": "^13.0.6",
+    "prettier": "^2.8.0",
+    "tsup": "^6.5.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.3.9",
+    "axios": "^1.2.0",
+    "eventemitter3": "^4.0.7",
+    "siwe": "^2.0.5"
+  },
+  "peerDependencies": {
+    "iron-session": "^6.2.0",
+    "next": "^12.2.0",
+    "react": "^17.0.2 || ^18"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": "prettier --write"
+  }
+}

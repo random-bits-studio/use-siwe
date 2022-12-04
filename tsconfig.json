@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "lib": ["esnext", "dom"],
+    "baseUrl": "."
+  }
+}
