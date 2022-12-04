@@ -27,6 +27,9 @@
     "*": {
       "next": [
         "./dist/next/index.d.ts"
+      ],
+      "rainbowkit": [
+        "./dist/rainbowkit/index.d.ts"
       ]
     }
   },
@@ -56,6 +59,7 @@
   },
   "homepage": "https://github.com/random-bits-studio/use-siwe#readme",
   "devDependencies": {
+    "@rainbow-me/rainbowkit": "^0.8.0",
     "@types/react": "^18.0.20",
     "husky": "^8.0.2",
     "iron-session": "^6.3.1",
@@ -74,10 +78,14 @@
   "peerDependencies": {
     "iron-session": "^6.2.0",
     "next": "^12.2.0 || ^13",
-    "react": "^17.0.2 || ^18"
+    "react": "^17.0.2 || ^18",
+    "@rainbow-me/rainbowkit": "^0.5.0"
   },
   "peerDependenciesMeta": {
     "next": {
+      "optional": true
+    },
+    "@rainbow-me/rainbowkit": {
       "optional": true
     }
   },
