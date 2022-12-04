@@ -25,9 +25,8 @@
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "./dist/index.d.ts",
-        "./dist/*/index.d.ts"
+      "next": [
+        "./dist/next/index.d.ts"
       ]
     }
   },
