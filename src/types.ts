@@ -1,18 +1,5 @@
 import "iron-session";
-
-type AuthenticatedResponse = {
-  authenticated: true;
-  address: string;
-  nonce: undefined;
-};
-
-type UnauthenticatedResponse = {
-  authenticated: false;
-  address: undefined;
-  nonce: string;
-};
-
-export type ApiResponse = AuthenticatedResponse | UnauthenticatedResponse;
+import { z } from "zod";
 
 declare module "iron-session" {
   interface IronSessionData {
@@ -20,3 +7,35 @@ declare module "iron-session" {
     nonce?: string | undefined;
   }
 }
+
+const siweMessageSchema = z.object({
+  domain: z.string(),
+  address: z.string(),
+  statement: z.string().optional(),
+  uri: z.string(),
+  version: z.string(),
+  chainId: z.number(),
+  nonce: z.string(),
+  issuedAt: z.string().optional(),
+  expirationTime: z.string().optional(),
+  notBefore: z.string().optional(),
+  requestId: z.string().optional(),
+  resources: z.array(z.string()),
+});
+
+export const signInRequestSchema = z.object({
+  message: siweMessageSchema,
+  signature: z.string(),
+});
+
+export type GetSessionResponse = {
+  authenticated: boolean,
+  address?: string,
+  nonce?: string
+};
+
+export type SignInRequest = z.infer<typeof signInRequestSchema>;
+
+export type SignInResponse = string;
+
+export type SignOutResponse = string;
