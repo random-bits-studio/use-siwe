@@ -1,21 +1,27 @@
 import express from "express";
+import { IronSessionOptions } from "iron-session";
+import { ironSession } from "iron-session/express";
 import { getSession, methodNotAllowed, notFound, signIn, signOut } from "../api.js";
 
-const router = express.Router();
+export const authRouter = (ironOptions: IronSessionOptions) => {
+  const router = express.Router();
 
-router.route('/')
-  .get(getSession)
-  .all(methodNotAllowed);
+  router.use(ironSession(ironOptions));
 
-router.route('/signin')
-  .post(signIn)
-  .all(methodNotAllowed);
+  router.route('/')
+    .get(getSession)
+    .all(methodNotAllowed);
 
-router.route('/signout')
-  .post(signOut)
-  .all(methodNotAllowed);
+  router.route('/signin')
+    .post(signIn)
+    .all(methodNotAllowed);
 
-router.route('*')
-  .all(notFound);
+  router.route('/signout')
+    .post(signOut)
+    .all(methodNotAllowed);
 
-export default router;
+  router.route('*')
+    .all(notFound);
+
+  return router;
+};

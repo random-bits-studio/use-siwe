@@ -39,7 +39,10 @@ export const signIn: RequestHandler<SignInResponse> = async (req, res) => {
   if (!nonce) return res.status(400).send("Bad Request");
 
   const parsedBody = signInRequestSchema.safeParse(req.body);
-  if (!parsedBody.success) return res.status(400).send(fromZodError(parsedBody.error).message);
+  if (!parsedBody.success) {
+    const error = fromZodError(parsedBody.error);
+    return res.status(400).send(error.message);
+  }
   const { message, signature } = parsedBody.data;
 
   const { success, error, data } = await new SiweMessage(message).verify({
@@ -48,7 +51,7 @@ export const signIn: RequestHandler<SignInResponse> = async (req, res) => {
     // domain, // TODO: verify domain is correct too
   });
 
-  if (!success && error) return res.status(500).send(error.type); // TODO: Better status code
+  if (!success && error) return res.status(400).send(error.type);
   if (!success) return res.status(500).send("Unknown Error");
 
   req.session.nonce = undefined;
