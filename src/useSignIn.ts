@@ -2,7 +2,7 @@ import { useMutation, useQueryClient, UseQueryOptions } from "@tanstack/react-qu
 import { useContext } from "react";
 import { SiweMessage } from "siwe";
 import { useAccount, useNetwork, useSignMessage } from "wagmi";
-import { parseOptions } from "./parseOptions.js";
+import { parseOptions } from "./useOptions.js";
 import { optionsContext, queryContext } from "./siweProvider.js";
 import { UseSiweOptions } from "./types.js";
 import { useSession } from "./useSession.js";

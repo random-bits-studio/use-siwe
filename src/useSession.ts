@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { parseOptions } from "./parseOptions.js";
+import { parseOptions } from "./useOptions.js";
 import { queryContext, optionsContext } from "./siweProvider.js";
 import { GetSessionResponse, UseSiweOptions } from "./types.js";
 

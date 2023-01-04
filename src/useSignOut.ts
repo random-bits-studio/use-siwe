@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useAccount, useDisconnect } from "wagmi";
-import { parseOptions } from "./parseOptions.js";
+import { parseOptions } from "./useOptions.js";
 import { optionsContext, queryContext } from "./siweProvider.js";
 import { UseSiweOptions } from "./types.js";
 import { useSession } from "./useSession.js";
