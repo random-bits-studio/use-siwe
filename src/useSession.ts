@@ -1,18 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import { siweContext as context } from "./siweProvider.js";
-import { GetSessionResponse } from "./types.js";
+import { useContext } from "react";
+import { parseOptions } from "./parseOptions.js";
+import { queryContext, optionsContext } from "./siweProvider.js";
+import { GetSessionResponse, UseSiweOptions } from "./types.js";
 
-export const getSession = async () => {
-  const res = await fetch("/api/auth");
+export const getSession = async (options?: UseSiweOptions) => {
+  const { baseUrl } = parseOptions(options);
+  const res = await fetch(baseUrl);
   if (!res.ok) throw new Error(res.statusText);
   return res.json() as Promise<GetSessionResponse>;
 }
 
 export const useSession = () => {
+  const options = useContext(optionsContext);
   const { data, ...rest } = useQuery({
     queryKey: ["session"],
-    queryFn: getSession,
-    context,
+    queryFn: () => getSession(options),
+    context: queryContext,
   });
 
   return { ...rest, ...data };

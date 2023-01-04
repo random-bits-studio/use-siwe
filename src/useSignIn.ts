@@ -1,14 +1,26 @@
 import { useMutation, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
+import { useContext } from "react";
 import { SiweMessage } from "siwe";
 import { useAccount, useNetwork, useSignMessage } from "wagmi";
-import { siweContext as context } from "./siweProvider.js";
+import { parseOptions } from "./parseOptions.js";
+import { optionsContext, queryContext } from "./siweProvider.js";
+import { UseSiweOptions } from "./types.js";
 import { useSession } from "./useSession.js";
 
 type UseSignInOptions = Pick<UseQueryOptions<void>, "onSuccess" | "onError">
+type MessageArgs = {
+  address: string,
+  chainId: number,
+  nonce: string,
+};
+type VerifyArgs = {
+  message: string,
+  signature: string,
+};
 
-export const createMessage = (options: { address: string, chainId: number, nonce: string }) =>
+export const createMessage = (args: MessageArgs) =>
   new SiweMessage({
-    ...options,
+    ...args,
     domain: window.location.host,
     uri: window.location.origin,
     version: "1",
@@ -17,10 +29,11 @@ export const createMessage = (options: { address: string, chainId: number, nonce
 export const getMessageBody = ({ message }: { message: SiweMessage }) =>
   message.prepareMessage();
 
-export const verify = async ({ message, signature}: { message: string, signature: string }) => {
-  const res = await fetch("/api/auth/signin", {
+export const verify = async (args: VerifyArgs, options?: UseSiweOptions) => {
+  const { baseUrl } = parseOptions(options);
+  const res = await fetch(`${baseUrl}/signin`, {
     method: "POST",
-    body: JSON.stringify({ message, signature }),
+    body: JSON.stringify(args),
   });
 
   return res.ok;
@@ -31,14 +44,17 @@ export const useSignIn = ({ onSuccess, onError }: UseSignInOptions = {}) => {
   const { chain } = useNetwork();
   const { nonce } = useSession();
   const { signMessageAsync } = useSignMessage();
-  const queryClient = useQueryClient({ context });
+  const queryClient = useQueryClient({
+    context: queryContext,
+  });
+  const options = useContext(optionsContext);
 
   const { mutate, mutateAsync, ...rest } = useMutation(
     async () => {
       const rawMessage = createMessage({ address, chainId: chain.id, nonce });
       const message = getMessageBody({ message: rawMessage });
       const signature = await signMessageAsync({ message });
-      const result = await verify({ message, signature });
+      const result = await verify({ message, signature }, options);
       if (!result) throw new Error("Verification Failed");
     },
     {
@@ -47,7 +63,7 @@ export const useSignIn = ({ onSuccess, onError }: UseSignInOptions = {}) => {
         if (onSuccess) onSuccess();
       },
       onError,
-      context,
+      context: queryContext,
     },
   );
 

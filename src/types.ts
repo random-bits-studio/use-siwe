@@ -39,3 +39,7 @@ export type SignInRequest = z.infer<typeof signInRequestSchema>;
 export type SignInResponse = string;
 
 export type SignOutResponse = string;
+
+export type UseSiweOptions = {
+  baseUrl?: string,
+};
