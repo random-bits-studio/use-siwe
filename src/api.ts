@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { generateNonce, SiweMessage } from 'siwe';
+import { fromZodError } from 'zod-validation-error';
 import { GetSessionResponse, signInRequestSchema, SignInResponse, SignOutResponse } from './types.js';
 
 interface Request extends IncomingMessage {
@@ -38,7 +39,7 @@ export const signIn: RequestHandler<SignInResponse> = async (req, res) => {
   if (!nonce) return res.status(400).send("Bad Request");
 
   const parsedBody = signInRequestSchema.safeParse(req.body);
-  if (!parsedBody.success) return res.status(400).send("Bad Request");
+  if (!parsedBody.success) return res.status(400).send(fromZodError(parsedBody.error).message);
   const { message, signature } = parsedBody.data;
 
   const { success, error, data } = await new SiweMessage(message).verify({
