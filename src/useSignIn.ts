@@ -14,7 +14,7 @@ type MessageArgs = {
   nonce: string,
 };
 type VerifyArgs = {
-  message: string,
+  message: SiweMessage,
   signature: string,
 };
 
@@ -52,9 +52,9 @@ export const useSignIn = ({ onSuccess, onError }: UseSignInOptions = {}) => {
 
   const { mutate, mutateAsync, ...rest } = useMutation(
     async () => {
-      const rawMessage = createMessage({ address, chainId: chain.id, nonce });
-      const message = getMessageBody({ message: rawMessage });
-      const signature = await signMessageAsync({ message });
+      const message = createMessage({ address, chainId: chain.id, nonce });
+      const messageBody = getMessageBody({ message: message });
+      const signature = await signMessageAsync({ message: messageBody });
       const result = await verify({ message, signature }, options);
       if (!result) throw new Error("Verification Failed");
     },
