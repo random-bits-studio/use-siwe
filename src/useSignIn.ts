@@ -32,6 +32,7 @@ export const getMessageBody = ({ message }: { message: SiweMessage }) =>
 export const verify = async (args: VerifyArgs, options?: UseSiweOptions) => {
   const { baseUrl } = parseOptions(options);
   const res = await fetch(`${baseUrl}/signin`, {
+    headers: { 'Content-Type': 'application/json' },
     method: "POST",
     body: JSON.stringify(args),
   });
