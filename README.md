@@ -4,7 +4,7 @@ Use-siwe is a library that provides a react hook and a set API endpoints that
 make it dead simple to add Sign-In with Ethereum functionality to your react
 application.
 
-## Works with RainbowKit
+### Works with RainbowKit
 
 The easiest way to use this library is with Rainbowkit!
 Check out the RainbowKit authentication adapter for use-siwe here:
