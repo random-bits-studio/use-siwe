@@ -1,12 +1,12 @@
 # Use SIWE
 
-Use-siwe is a library that provides a react hook and a set API endpoints that
-make it dead simple to add Sign-In with Ethereum functionality to your react
+Use-siwe is a library that provides react hooks and API endpoints that make it
+dead simple to add Sign-In with Ethereum functionality to your react
 application.
 
 ### Works with RainbowKit
 
-The easiest way to use this library is with Rainbowkit!
+The easiest way to use this library is with RainbowKit!
 Check out the RainbowKit authentication adapter for use-siwe here:
 https://github.com/random-bits-studio/rainbowkit-use-siwe-auth
 
@@ -133,7 +133,7 @@ app.listen(3001);
 
 ## Wrapping your application with `SiweProvider`
 
-Any compomnent that uses the any of the use-siwe hooks must be wrapped with the
+Any component that uses the any of the use-siwe hooks must be wrapped with the
 `SiweProvider` component. For a Next.js application we recommend doing so in
 `pages/_app.tsx` like in the example below:
 
@@ -362,8 +362,8 @@ import { useOptions, verify } from "@randombits/use-siwe";
 
 const verifyButton = (props) => {
   const options = useOptions();
-  cosnt handleClick = () => verify({
-    messgae: props.message,
+  const handleClick = () => verify({
+    message: props.message,
     signature: props.signature,
   }, options);
 
@@ -381,7 +381,7 @@ useSiweOptions
 
 ### Next.js: SiweApi
 
-A function that rutuns a `NextApiHandler` that will handle all auth API
+A function that returns a `NextApiHandler` that will handle all auth API
 routes.
 
 #### Usage
@@ -461,7 +461,7 @@ const addressOrNull = async () => {
 
 ### createMessage
 
-Returnds a `SiweMessage` for the given address, chainId, and nonce.
+Returns a `SiweMessage` for the given address, chainId, and nonce.
 
 #### Usage
 
@@ -531,9 +531,9 @@ the auth API. A successful verification will create a session for the user.
 import { verify } from "@randombits/use-siwe";
 
 const verifyButton = (props) => {
-  cosnt handleClick = () => {
+  const handleClick = () => {
     const success = verify({
-      messgae: props.message,
+      message: props.message,
       signature: props.signature,
     });
 
