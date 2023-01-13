@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession, methodNotAllowed, notFound, signIn, signOut } from "../api.js";
 
-export const siweApi = async (req: NextApiRequest, res: NextApiResponse) => {
+export const siweApi = () => async (req: NextApiRequest, res: NextApiResponse) => {
   let { route } = req.query;
   if (route instanceof Array) route = route[0];
   const { method } = req;
