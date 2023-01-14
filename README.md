@@ -141,14 +141,33 @@ Any component that uses the any of the use-siwe hooks must be wrapped with the
 // pages/_app.tsx
 
 import type { AppProps } from 'next/app';
+import { configureChains, mainnet } from 'wagmi';
+import { publicProvider } from 'wagmi/providers/public';
 import { SiweProvider } from '@randombits/use-siwe';
 
+const { chains, provider, webSocketProvider } = configureChains(
+  [mainnet],
+  [publicProvider()],
+);
+
+const client = createClient({
+  autoConnect: true,
+  provider,
+  webSocketProvider,
+});
+
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <SiweProvider>
-    <Component {...pageProps} />
-  </SiweProvider>;
+  return (
+    <WagmiConfig client={client}>
+      <SiweProvider>
+        <Component {...pageProps} />
+      </SiweProvider>
+    </WagmiConfig>
+  );
 }
 ```
+
+**Important:** The `SiweProvider` must be inside a `WagmiConfig` component.
 
 ## Using the hooks
 
