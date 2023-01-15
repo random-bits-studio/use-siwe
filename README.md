@@ -55,8 +55,7 @@ npm install @randombits/use-siwe wagmi ethers iron-session
 
 ## Configure settings for `iron-session`
 
-For full reference of possible options see:
-https://github.com/vvo/iron-session#ironoptions
+Copy and paste the following code into a new file in your project:
 
 ```
 // lib/ironOptions.ts
@@ -83,6 +82,14 @@ declare module "iron-session" {
 
 export default ironOptions;
 ```
+
+**Remember to set IRON_SESSION_PASSWORD** in your `.env.local` file for
+development, and in your production environment through your hosting
+provider settings. The password must be at least 32 characters long. You can
+use https://1password.com/password-generator/ to generate strong passwords.
+
+For full reference of possible options see:
+https://github.com/vvo/iron-session#ironoptions
 
 **Typing session data**
 The type definition of `IronSessionData` in the example above provides a type
@@ -173,6 +180,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 ### Checking if a user is authenticated
 
+#### Client-side
+
 Check to see is a user is authenticated with the `useSession` hook like in the
 example below:
 
@@ -186,6 +195,26 @@ export const AuthCheck = () => {
   if (!authenticated) return <p>Not authenticated</p>;
   return <p>{address} is Authenticated</p>;
 };
+```
+
+#### Server-side
+
+For API routes, wrap your API handler with `withIronSessionApiRoute` and check
+to see if `req.session.address` is set. If a user is authenticated,
+`req.session.address` will be set to their address, otherwise it will be
+`undefined`.
+
+```
+import ironOptions from '@/lib/ironOptions'
+import { withIronSessionApiRoute } from 'iron-session/next/dist'
+import type { NextApiHandler } from 'next'
+
+const handler: NextApiHandler = (req, res) => {
+  if (!req.session.address) return res.status(401).send("Unauthorized");
+  res.status(200).send(`Hello, ${req.session.address}!`);
+}
+
+export default withIronSessionApiRoute(handler, ironOptions);
 ```
 
 ### Signing In
