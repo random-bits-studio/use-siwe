@@ -1,9 +1,10 @@
 import "iron-session";
+import { Address } from "wagmi";
 import { z } from "zod";
 
 declare module "iron-session" {
   interface IronSessionData {
-    address?: string | undefined;
+    address?: Address | undefined;
     nonce?: string | undefined;
   }
 }
@@ -30,8 +31,8 @@ export const signInRequestSchema = z.object({
 
 export type GetSessionResponse = {
   authenticated: boolean,
-  address?: string,
-  nonce?: string
+  address?: Address,
+  nonce?: string,
 };
 
 export type SignInRequest = z.infer<typeof signInRequestSchema>;
