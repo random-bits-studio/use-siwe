@@ -1,6 +1,6 @@
-# Use SIWE
+# UseSIWE
 
-Use-siwe is a library that provides react hooks and API endpoints that make it
+UseSIWE is a library that provides react hooks and API endpoints that make it
 dead simple to add Sign-In with Ethereum functionality to your react
 application.
 
@@ -45,7 +45,7 @@ https://github.com/random-bits-studio/rainbowkit-use-siwe-auth
 
 # Installation
 
-To install `use-siwe` and it's dependencies run the following command:
+To install UseSIWE and it's dependencies run the following command:
 
 ```
 npm install @randombits/use-siwe wagmi ethers iron-session
@@ -94,7 +94,7 @@ https://github.com/vvo/iron-session#ironoptions
 **Typing session data**
 The type definition of `IronSessionData` in the example above provides a type
 definition to the data passed to api functions in `req.session`. `address` and
-`nonce` are used and set by use-siwe; if you plan on storing other data in the
+`nonce` are used and set by UseSIWE; if you plan on storing other data in the
 session, feel free to add additional types here.
 
 For more information see:
@@ -131,7 +131,7 @@ app.use(ironSession(ironOptions));
 
 // Your existing api routes here...
 
-// Add use-siwe auth routes
+// Add UseSIWE auth routes
 app.use('/auth', authRouter());
 
 app.listen(3001);
@@ -140,7 +140,7 @@ app.listen(3001);
 
 ## Wrapping your application with `SiweProvider`
 
-Any component that uses the any of the use-siwe hooks must be wrapped with the
+Any component that uses the any of the UseSIWE hooks must be wrapped with the
 `SiweProvider` component. For a Next.js application we recommend doing so in
 `pages/_app.tsx` like in the example below:
 
@@ -251,7 +251,7 @@ const SignOutButton = () => {
 
 ### UseSiweOptions
 
-Use-siwe accepts an object of options. Currently this consists of one optional
+UseSIWE accepts an object of options. Currently this consists of one optional
 setting:
 
 #### Usage
