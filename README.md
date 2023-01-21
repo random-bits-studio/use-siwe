@@ -7,7 +7,7 @@ application.
 ### 🌈 Works with RainbowKit
 
 The easiest way to use this library is with RainbowKit!
-Check out the RainbowKit authentication adapter for use-siwe here:
+Check out the RainbowKit authentication adapter for UseSiwe here:
 https://github.com/random-bits-studio/rainbowkit-use-siwe-auth
 
 # Table of Contents
