@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { generateNonce, SiweMessage } from 'siwe';
+import { Address } from 'wagmi';
 import { fromZodError } from 'zod-validation-error';
 import { GetSessionResponse, signInRequestSchema, SignInResponse, SignOutResponse } from './types.js';
 
@@ -55,7 +56,7 @@ export const signIn: RequestHandler<SignInResponse> = async (req, res) => {
   if (!success) return res.status(500).send("Unknown Error");
 
   req.session.nonce = undefined;
-  req.session.address = data.address;
+  req.session.address = data.address as Address;
   await req.session.save();
 
   return res.send("OK");

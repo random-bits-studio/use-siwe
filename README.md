@@ -61,6 +61,7 @@ Copy and paste the following code into a new file in your project:
 // lib/ironOptions.ts
 
 import { IronSessionOptions } from 'iron-session';
+import { Address } from 'wagmi';
 
 if (!process.env.IRON_SESSION_PASSWORD)
   throw new Error('IRON_SESSION_PASSWORD must be set');
@@ -75,7 +76,7 @@ const ironOptions: IronSessionOptions = {
 
 declare module "iron-session" {
   interface IronSessionData {
-    address?: string | undefined;
+    address?: Address | undefined;
     nonce?: string | undefined;
   }
 }
