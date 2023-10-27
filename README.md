@@ -57,7 +57,7 @@ npm install @randombits/use-siwe wagmi ethers iron-session
 
 Copy and paste the following code into a new file in your project:
 
-```
+```ts
 // lib/ironOptions.ts
 
 import { IronSessionOptions } from 'iron-session';
@@ -106,7 +106,7 @@ https://github.com/vvo/iron-session#typing-session-data-with-typescript
 
 Copy and past the following code into `pages/api/auth/[[...route]].ts`:
 
-```
+```ts
 import { withIronSessionApiRoute } from "iron-session/next";
 import ironOptions from "lib/ironOptions";
 import { siweApi } from "@randombits/use-siwe/next"
@@ -118,7 +118,7 @@ export default withIronSessionApiRoute(siweApi(), ironOptions);
 
 To add auth routes to your existing express API, add the following:
 
-```
+```ts
 import express from "express";
 import { ironSession } from "iron-session/express";
 import ironOptions from "./ironOptions.js";
@@ -135,7 +135,6 @@ app.use(ironSession(ironOptions));
 app.use('/auth', authRouter());
 
 app.listen(3001);
-
 ```
 
 ## Wrapping your application with `SiweProvider`
@@ -144,7 +143,7 @@ Any component that uses the any of the UseSIWE hooks must be wrapped with the
 `SiweProvider` component. For a Next.js application we recommend doing so in
 `pages/_app.tsx` like in the example below:
 
-```
+```ts
 // pages/_app.tsx
 
 import type { AppProps } from 'next/app';
@@ -185,7 +184,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 Check to see is a user is authenticated with the `useSession` hook like in the
 example below:
 
-```
+```ts
 import { useSession } from "@randombits/use-siwe";
 
 export const AuthCheck = () => {
@@ -204,7 +203,7 @@ to see if `req.session.address` is set. If a user is authenticated,
 `req.session.address` will be set to their address, otherwise it will be
 `undefined`.
 
-```
+```ts
 import ironOptions from '@/lib/ironOptions'
 import { withIronSessionApiRoute } from 'iron-session/next/dist'
 import type { NextApiHandler } from 'next'
@@ -222,7 +221,7 @@ export default withIronSessionApiRoute(handler, ironOptions);
 Login the user by calling the `signIn` function returned by the `useSignIn`
 hook:
 
-```
+```ts
 import { useSignIn } from "@randombits/use-siwe";
 
 const SignInButton = () => {
@@ -236,7 +235,7 @@ const SignInButton = () => {
 Logout the user by calling the `signOut` function returned by the `useSignOut`
 hook:
 
-```
+```ts
 import { useSignOut } from "@randombits/use-siwe";
 
 const SignOutButton = () => {
@@ -256,7 +255,7 @@ setting:
 
 #### Usage
 
-```
+```ts
 const options: UseSiweOptions = {
   baseUrl: "/v2/api/auth",
 };
@@ -276,7 +275,7 @@ Context provider component that must wrap all components that use `useSession`,
 
 #### Usage
 
-```
+```ts
 import type { AppProps } from 'next/app';
 import { SiweProvider } from '@randombits/use-siwe';
 
@@ -299,7 +298,7 @@ A hook that returns the the current state of the users session.
 
 #### Usage
 
-```
+```ts
 import { useSession } from "@randombits/use-siwe";
 
 export const Component = () => {
@@ -316,7 +315,7 @@ export const Component = () => {
 Returns a `UseQueryResult` ([ref](https://tanstack.com/query/latest/docs/react/reference/useQuery))
 augmented with the following:
 
-```
+```ts
 {
   authenticated: boolean;
   address?: string;
@@ -331,7 +330,7 @@ as the status of that signIn process.
 
 #### Usage
 
-```
+```ts
 import { useSignIn } from "@randombits/use-siwe";
 
 const SignInButton = () => {
@@ -342,7 +341,7 @@ const SignInButton = () => {
 
 #### Options
 
-```
+```ts
 {
   onSuccess: () => void,
   onError: () => void,
@@ -354,7 +353,7 @@ const SignInButton = () => {
 Returns a `UseMutationResult` ([ref](https://tanstack.com/query/latest/docs/react/reference/useMutation))
 augmented with the following:
 
-```
+```ts
 {
   signIn: () => void,
   SignInAsync: () => Promise<void>,
@@ -368,7 +367,7 @@ current user and disconnect their wallet.
 
 #### Usage
 
-```
+```ts
 import { useSignOut } from "@randombits/use-siwe";
 
 const SignOutButton = () => {
@@ -379,7 +378,7 @@ const SignOutButton = () => {
 
 #### Options
 
-```
+```ts
 {
   onSuccess: () => void,
   onError: () => void,
@@ -391,7 +390,7 @@ const SignOutButton = () => {
 Returns a `UseMutationResult` ([ref](https://tanstack.com/query/latest/docs/react/reference/useMutation))
 augmented with the following:
 
-```
+```ts
 {
   signOut: () => void,
   SignOutAsync: () => Promise<void>,
@@ -405,7 +404,7 @@ A hook that simply returns the options that have been set by in the
 
 #### Usage
 
-```
+```ts
 import { useOptions, verify } from "@randombits/use-siwe";
 
 const verifyButton = (props) => {
@@ -421,7 +420,7 @@ const verifyButton = (props) => {
 
 #### Return Value
 
-```
+```ts
 useSiweOptions
 ```
 
@@ -434,7 +433,7 @@ routes.
 
 #### Usage
 
-```
+```ts
 import { withIronSessionApiRoute } from "iron-session/next";
 import ironOptions from "lib/ironOptions";
 import { siweApi } from "@randombits/use-siwe/next"
@@ -444,7 +443,7 @@ export default withIronSessionApiRoute(siweApi(), ironOptions);
 
 #### Return Value
 
-```
+```ts
 NextApiHandler
 ```
 
@@ -455,7 +454,7 @@ routes.
 
 #### Usage
 
-```
+```ts
 import express from "express";
 import { ironSession } from "iron-session/express";
 import ironOptions from "./ironOptions.js";
@@ -471,7 +470,7 @@ app.listen(3001);
 
 #### Return Value
 
-```
+```ts
 Router
 ```
 
@@ -483,7 +482,7 @@ A function to retrieve the session data where using a hook doesn't make sense.
 
 #### Usage
 
-```
+```ts
 import { getSession } from "@randombits/use-siwe";
 
 const addressOrNull = async () => {
@@ -499,7 +498,7 @@ const addressOrNull = async () => {
 
 #### Return Value
 
-```
+```ts
 {
   authenticated: boolean;
   address?: string;
@@ -513,7 +512,7 @@ Returns a `SiweMessage` for the given address, chainId, and nonce.
 
 #### Usage
 
-```
+```ts
 import { createMessage, getMessageBody } from "@randombits/use-siwe";
 
 const debugMessage = (address, chainId, nonce) => {
@@ -527,7 +526,7 @@ const debugMessage = (address, chainId, nonce) => {
 
 - `args: MessageArgs`
 
-```
+```ts
 type MessageArgs = {
   address: string,
   chainId: number,
@@ -537,7 +536,7 @@ type MessageArgs = {
 
 #### Return Value
 
-```
+```ts
 SiweMessage
 ```
 
@@ -548,7 +547,7 @@ SiweMessage object.
 
 #### Usage
 
-```
+```ts
 import { createMessage, getMessageBody } from "@randombits/use-siwe";
 
 const debugMessage = (address, chainId, nonce) => {
@@ -564,7 +563,7 @@ const debugMessage = (address, chainId, nonce) => {
 
 #### Return Value
 
-```
+```ts
 string
 ```
 
@@ -575,7 +574,7 @@ the auth API. A successful verification will create a session for the user.
 
 #### Usage
 
-```
+```ts
 import { verify } from "@randombits/use-siwe";
 
 const verifyButton = (props) => {
@@ -598,7 +597,7 @@ const verifyButton = (props) => {
 - `args: VerifyArgs`
 - `options?: UseSiweOptions`
 
-```
+```ts
 type VerifyArgs = {
   message: SiweMessage,
   signature: string,
@@ -607,7 +606,7 @@ type VerifyArgs = {
 
 #### Return Value
 
-```
+```ts
 boolean
 ```
 
@@ -617,7 +616,7 @@ A function to sign out the user where using a hook doesn't make sense.
 
 #### Usage
 
-```
+```ts
 import { signOut } from "@randombits/use-siwe";
 
 // Logout a user after 1 hour
@@ -633,6 +632,6 @@ setTimeout(async () => {
 
 #### Return Value
 
-```
+```ts
 Promise<void>
 ```
