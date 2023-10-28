@@ -45,7 +45,7 @@ https://github.com/random-bits-studio/rainbowkit-use-siwe-auth
 
 # Installation
 
-To install UseSIWE and it's dependencies run the following command:
+To install UseSIWE and its dependencies run the following command:
 
 ```
 npm install @randombits/use-siwe wagmi ethers iron-session
@@ -181,7 +181,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 #### Client-side
 
-Check to see is a user is authenticated with the `useSession` hook like in the
+Check to see if a user is authenticated with the `useSession` hook like in the
 example below:
 
 ```ts
@@ -294,7 +294,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 ### useSession
 
-A hook that returns the the current state of the users session.
+A hook that returns the current state of the users session.
 
 #### Usage
 
